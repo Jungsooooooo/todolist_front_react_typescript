@@ -1,16 +1,15 @@
-import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import Home from "./home/Home";
-import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import CreateTodo from "./create/CreateTodo";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Home />
         <Routes>
-          <Route path="/test" element={<Home />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/create" element={<CreateTodo />} />
         </Routes>
       </BrowserRouter>
     </div>
