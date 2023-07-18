@@ -1,4 +1,8 @@
 .textTodo {
-  width: 100%;
+  width: 500px;
   margin-top: 5em;
+}
+
+.selectDate {
+  margin-top: 3em;
 }
