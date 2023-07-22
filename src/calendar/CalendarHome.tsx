@@ -4,14 +4,24 @@ import type { Dayjs } from "dayjs";
 import type { CalendarMode } from "antd/es/calendar/generateCalendar";
 import type { BadgeProps } from "antd";
 import type { CellRenderInfo } from "rc-picker/lib/interface";
+import moment from "moment";
+import axios from "axios";
 
 const CalendarHome = () => {
+  const;
+
   const onPanelChange = (value: Dayjs, mode: CalendarMode) => {
     console.log(value.format("YYYY-MM-DD"), mode);
   };
 
+  const getTodo = () => {
+    return axios.get("/api/todo/all").then((res) => {});
+  };
+
   const getListData = (value: Dayjs) => {
     let listData;
+    console.log(value.month());
+    console.log(moment.months());
     switch (value.date()) {
       case 8:
         listData = [
