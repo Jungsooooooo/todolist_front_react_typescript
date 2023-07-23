@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Calendar, Badge } from "antd";
 import type { Dayjs } from "dayjs";
 import type { CalendarMode } from "antd/es/calendar/generateCalendar";
@@ -8,20 +8,29 @@ import moment from "moment";
 import axios from "axios";
 
 const CalendarHome = () => {
-  const;
+  const [todoData, setTodoData] = useState<string[] | undefined>();
+
+  useEffect(() => {
+    getTodo();
+  }, []);
 
   const onPanelChange = (value: Dayjs, mode: CalendarMode) => {
     console.log(value.format("YYYY-MM-DD"), mode);
   };
 
   const getTodo = () => {
-    return axios.get("/api/todo/all").then((res) => {});
+    return axios.get("/todo/all").then((res) => {
+      let responseData = res.data;
+
+      setTodoData(res.data);
+      console.log(responseData[0].startDate.getMonth());
+      console.log(res.data);
+    });
   };
 
   const getListData = (value: Dayjs) => {
     let listData;
-    console.log(value.month());
-    console.log(moment.months());
+    console.log(todoData);
     switch (value.date()) {
       case 8:
         listData = [
