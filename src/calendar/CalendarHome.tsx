@@ -4,11 +4,18 @@ import type { Dayjs } from "dayjs";
 import type { CalendarMode } from "antd/es/calendar/generateCalendar";
 import type { BadgeProps } from "antd";
 import type { CellRenderInfo } from "rc-picker/lib/interface";
+import { UUID } from "crypto";
 import moment from "moment";
 import axios from "axios";
 
+interface Todo {
+  uid: UUID;
+  todo: string;
+  startDate: Date;
+}
+
 const CalendarHome = () => {
-  const [todoData, setTodoData] = useState<string[] | undefined>();
+  const [todoData, setTodoData] = useState<Todo[]>([null]);
 
   useEffect(() => {
     getTodo();
@@ -18,19 +25,20 @@ const CalendarHome = () => {
     console.log(value.format("YYYY-MM-DD"), mode);
   };
 
-  const getTodo = () => {
-    return axios.get("/todo/all").then((res) => {
-      let responseData = res.data;
-
-      setTodoData(res.data);
-      console.log(responseData[0].startDate.getMonth());
-      console.log(res.data);
-    });
+  const getTodo = async () => {
+    //  return await axios.get("/todo/all").then((res) => {
+    //   setTodoData(res.data);
+    //   console.log(res.data);
+    // });
+    const response = await axios.get("/todo/all");
+    const todoData: Todo[] = response.data;
+    setTodoData(todoData);
+    return todoData;
   };
 
   const getListData = (value: Dayjs) => {
     let listData;
-    console.log(todoData);
+    console.log(todoData[0].startDate);
     switch (value.date()) {
       case 8:
         listData = [
