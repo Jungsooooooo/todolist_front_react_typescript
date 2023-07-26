@@ -3,10 +3,11 @@ import type { DatePickerProps } from "antd";
 import { DatePicker, Space, Input, Form, Button } from "antd";
 import "../css/CreateTodo.css";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const CreateTodo = () => {
   const { TextArea } = Input;
-
+  const navigate = useNavigate();
   // const axios = require("axios").default;
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [todo, setTodo] = useState<string>("");
@@ -23,7 +24,7 @@ const CreateTodo = () => {
       do: todo,
     };
     axios.post("/todo", input).then((res) => {
-      console.log(res.data);
+      navigate("/");
     });
   };
 
