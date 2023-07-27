@@ -7,6 +7,8 @@ import type { CellRenderInfo } from "rc-picker/lib/interface";
 import { UUID } from "crypto";
 import axios from "axios";
 
+import "../css/CalendarHome.css";
+
 interface Todo {
   uid: UUID;
   todo: string;
@@ -58,7 +60,7 @@ const CalendarHome = () => {
   const dateCellRender = (value: Dayjs) => {
     const listData = getListData(value);
     return (
-      <ul className="events">
+      <ul className="todolist">
         {listData.map((item: listDate) => (
           <li className="no_dot" key={item.content}>
             <Badge status={item.type as BadgeProps["status"]} text={item.content} />

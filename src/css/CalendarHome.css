@@ -1,7 +1,7 @@
-.events {
+.no_dot::marker {
   margin: 0;
-  padding: 0;
-  list-style: none;
+  list-style: none !important;
+  padding-left: 0px;
 }
 .events .ant-badge-status {
   width: 100%;
@@ -16,4 +16,8 @@
 }
 .notes-month section {
   font-size: 28px;
+}
+
+ul {
+  list-style: none !important;
 }
