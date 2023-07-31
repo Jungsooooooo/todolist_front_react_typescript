@@ -11,12 +11,16 @@ const Home = () => {
     navigate("/create");
   };
 
+  const goToTable = () => {
+    navigate("/table");
+  };
+
   return (
     <div>
       <Button type="primary" onClick={goToCreate}>
         할 일 적기
       </Button>
-      <Button>테이블로 보기</Button>
+      <Button onClick={goToTable}>테이블로 보기</Button>
       <CalendarHome />
     </div>
   );
