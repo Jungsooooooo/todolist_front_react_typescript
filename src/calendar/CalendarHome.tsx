@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Calendar, Badge } from "antd";
-import type { Dayjs } from "dayjs";
-import type { CalendarMode } from "antd/es/calendar/generateCalendar";
+import { Dayjs } from "dayjs";
 import type { BadgeProps } from "antd";
 import type { CellRenderInfo } from "rc-picker/lib/interface";
 import { UUID } from "crypto";
@@ -22,7 +21,6 @@ interface listDate {
 
 const CalendarHome = () => {
   const [todoData, setTodoData] = useState<Todo[] | undefined>([]);
-
   useEffect(() => {
     getTodo();
   }, []);
@@ -41,8 +39,6 @@ const CalendarHome = () => {
       let fulldate = new Date(todo.startDate);
       let month = fulldate.getMonth();
       let date = fulldate.getDate();
-      console.log({ month });
-      console.log({ date });
 
       if (value.month() === month) {
         switch (value.date()) {

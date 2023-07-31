@@ -9,7 +9,7 @@ const CreateTodo = () => {
   const { TextArea } = Input;
   const navigate = useNavigate();
   // const axios = require("axios").default;
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+
   const [todo, setTodo] = useState<string>("");
   const onChange: DatePickerProps["onChange"] = (date, dateString) => {
     console.log(date);
