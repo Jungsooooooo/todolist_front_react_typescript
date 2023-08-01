@@ -9,10 +9,12 @@ const CreateTodo = () => {
   const { TextArea } = Input;
   const navigate = useNavigate();
   // const axios = require("axios").default;
+  const dayjs = require("dayjs");
 
   const [todo, setTodo] = useState<string>("");
+  const [startDate, setStartDate] = useState<string | undefined>();
   const onChange: DatePickerProps["onChange"] = (date, dateString) => {
-    console.log(date);
+    setStartDate(dateString);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -20,8 +22,10 @@ const CreateTodo = () => {
   };
 
   const createTodo = () => {
+    console.log({ startDate });
     const input = {
       do: todo,
+      startDate: startDate,
     };
     axios.post("/todo", input).then((res) => {
       navigate("/");
