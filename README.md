@@ -11,3 +11,8 @@ typescript를 통해 개발해 본 적이 없어서 typescript기반으로 react
 
 
 달력에 그 날 해야할 일들이 보인다.
+화면 위 왼쪽에 할 일 적기 라는 버튼을 누르면
+
+2)
+![image](https://github.com/Jungsooooooo/todolist_front_react_typescript/assets/94541011/3875ebef-6d29-4235-a247-7eedaec80990)
+다음과 같은 화면이 뜬다.
