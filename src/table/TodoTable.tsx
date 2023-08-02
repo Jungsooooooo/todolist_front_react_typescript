@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { Divider, Radio, Table } from "antd";
+import { Divider, Radio, Table, Button } from "antd";
 import { Dayjs } from "dayjs";
 
 import axios from "axios";
 import { UUID } from "crypto";
+import { CheckboxChangeEvent } from "antd/es/checkbox";
 
 interface Todo {
   key: UUID;
@@ -29,16 +30,12 @@ const columns = [
   },
 ];
 
-const rowSelection = {
-  onChange: (selectedRowKeys: React.Key[], selectedRows: Todo[]) => {
-    console.log(`selectedRowKeys: ${selectedRowKeys}`, "selectedRows: ", selectedRows);
-  },
-};
-
 const TodoTable = () => {
   const [allData, setAllData] = useState<Todo[] | undefined>([]);
   const [dataSource, setDataSource] = useState<Todo[] | undefined>([]);
-  const [selectionType, setSelectionType] = useState<"radio">("radio");
+  const [selectionType, setSelectionType] = useState<"checkbox">("checkbox");
+
+  const [selectedRow, setSelectedRow] = useState<Todo | undefined>();
 
   const getData = async () => {
     return await axios.get("/todo/all").then((res) => {
@@ -51,22 +48,44 @@ const TodoTable = () => {
     });
   };
 
+  const rowSelection = {
+    onChange: (selectedRowKeys: React.Key[], selectedRows: Todo[]) => {
+      console.log(`selectedRowKeys: ${selectedRowKeys}`, "selectedRows: ", selectedRows);
+      return setSelectedRow(selectedRows[0]);
+    },
+  };
+
+  const deleteSelection = async () => {
+    console.log(selectedRow?.uid);
+    return axios.delete("/todo/" + selectedRow?.uid).then((res) => {
+      setSelectedRow(res.data);
+    });
+  };
   useEffect(() => {
     getData();
-  }, []);
+  }, [selectedRow]);
 
   return (
-    <div>
-      <Divider />
-      <Table
-        rowSelection={{
-          type: selectionType,
-          ...rowSelection,
-        }}
-        dataSource={allData}
-        columns={columns}
-      />
-    </div>
+    <>
+      <div>
+        <Divider />
+        <Table
+          rowSelection={{
+            type: selectionType,
+            ...rowSelection,
+          }}
+          dataSource={allData}
+          columns={columns}
+        />
+      </div>
+      {selectedRow === null || selectedRow === undefined ? (
+        ""
+      ) : (
+        <div>
+          <Button onClick={deleteSelection}>할 일 삭제</Button>
+        </div>
+      )}
+    </>
   );
 };
 
