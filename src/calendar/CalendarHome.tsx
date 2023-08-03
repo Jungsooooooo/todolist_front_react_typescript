@@ -5,8 +5,10 @@ import type { BadgeProps } from "antd";
 import type { CellRenderInfo } from "rc-picker/lib/interface";
 import { UUID } from "crypto";
 import axios from "axios";
+import { useDispatch } from "react-redux";
 
 import "../css/CalendarHome.css";
+import { bringYearAndMonthTable } from "../action/tAction";
 
 interface Todo {
   uid: UUID;
@@ -20,6 +22,8 @@ interface listDate {
 }
 
 const CalendarHome = () => {
+  const dispatch = useDispatch();
+
   const [todoData, setTodoData] = useState<Todo[] | undefined>([]);
   useEffect(() => {
     getTodo();
@@ -34,6 +38,12 @@ const CalendarHome = () => {
 
   const getListData = (value: Dayjs) => {
     let listData: listDate[] = [];
+    let info = {
+      year: value.year(),
+      month: value.month(),
+    };
+    console.log({ info });
+    dispatch(bringYearAndMonthTable(info));
 
     todoData?.map((todo) => {
       let fulldate = new Date(todo.startDate);
