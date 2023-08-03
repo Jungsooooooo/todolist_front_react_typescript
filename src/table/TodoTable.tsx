@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { Divider, Radio, Table, Button } from "antd";
-import { Dayjs } from "dayjs";
+import { Divider, Table, Button } from "antd";
 
 import axios from "axios";
 import { UUID } from "crypto";
-import { CheckboxChangeEvent } from "antd/es/checkbox";
+
+import { useSelector } from "react-redux";
+import { RootState } from "../reducer";
 
 interface Todo {
   key: UUID;
@@ -31,8 +32,9 @@ const columns = [
 ];
 
 const TodoTable = () => {
+  const YearAndMonth = useSelector((state: RootState) => state.callTableReducer);
+
   const [allData, setAllData] = useState<Todo[] | undefined>([]);
-  const [dataSource, setDataSource] = useState<Todo[] | undefined>([]);
   const [selectionType, setSelectionType] = useState<"checkbox">("checkbox");
 
   const [selectedRow, setSelectedRow] = useState<Todo | undefined>();
@@ -63,6 +65,7 @@ const TodoTable = () => {
   };
   useEffect(() => {
     getData();
+    console.log({ YearAndMonth });
   }, [selectedRow]);
 
   return (
