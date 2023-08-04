@@ -14,6 +14,7 @@ interface Todo {
   uid: UUID;
   todo: string;
   startDate: Date;
+  state: string;
 }
 
 interface listDate {
@@ -53,7 +54,7 @@ const CalendarHome = () => {
       if (value.month() === month) {
         switch (value.date()) {
           case date:
-            listData.push({ type: "success", content: todo.todo });
+            listData.push({ type: todo.state, content: todo.todo });
             break;
           default:
         }
