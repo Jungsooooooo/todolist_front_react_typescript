@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Divider, Table, Button } from "antd";
+import { Divider, Table, Button, Modal } from "antd";
 
 import axios from "axios";
 import { UUID } from "crypto";
@@ -12,6 +12,7 @@ interface Todo {
   todo: string;
   startDate: Date;
   uid: UUID;
+  state: string;
 }
 const columns = [
   {
@@ -29,11 +30,16 @@ const columns = [
     dataIndex: "endDate",
     key: "endDate",
   },
+  {
+    title: "상태",
+    dataIndex: "state",
+    key: "state",
+  },
 ];
 
 const TodoTable = () => {
   const YearAndMonth = useSelector((state: RootState) => state.callTableReducer);
-
+  const { confirm } = Modal;
   const [allData, setAllData] = useState<Todo[] | undefined>([]);
   const [selectionType, setSelectionType] = useState<"checkbox">("checkbox");
 
@@ -45,6 +51,11 @@ const TodoTable = () => {
       let datas = res.data;
       datas.map((data: Todo) => {
         data.key = data.uid;
+        if (data.state === "processing") {
+          data.state = "진행중";
+        } else {
+          data.state = "완료";
+        }
       });
       setAllData(datas);
     });
@@ -63,10 +74,57 @@ const TodoTable = () => {
       setSelectedRow(res.data);
     });
   };
+
+  const finishSelection = async () => {
+    confirm({
+      content: "완료 처리 하시겠습니까?",
+      onOk() {
+        const input = {
+          state: "success",
+        };
+        return axios.put("/todo/" + selectedRow?.uid, input).then(() => {
+          Modal.info({
+            content: (
+              <div>
+                <p>변경되었습니다.</p>
+              </div>
+            ),
+            onOk() {},
+          });
+        });
+      },
+      onCancel() {},
+    });
+  };
+
+  const unFinishSelection = async () => {
+    // setOpen(!open)
+
+    confirm({
+      content: "완료 취소 하시겠습니까?",
+      onOk() {
+        const input = {
+          state: "processing",
+        };
+        return axios.put("/todo/" + selectedRow?.uid, input).then(() => {
+          Modal.info({
+            content: (
+              <div>
+                <p>변경되었습니다.</p>
+              </div>
+            ),
+            onOk() {},
+          });
+        });
+      },
+      onCancel() {},
+    });
+  };
+
   useEffect(() => {
     getData();
     console.log({ YearAndMonth });
-  }, [selectedRow]);
+  }, [selectedRow, unFinishSelection, finishSelection]);
 
   return (
     <>
@@ -86,6 +144,15 @@ const TodoTable = () => {
       ) : (
         <div>
           <Button onClick={deleteSelection}>할 일 삭제</Button>
+          {selectedRow.state === "진행중" ? (
+            <Button className="finishButton" danger onClick={finishSelection}>
+              완료
+            </Button>
+          ) : (
+            <Button className="finishButton" danger onClick={unFinishSelection}>
+              완료 취소
+            </Button>
+          )}
         </div>
       )}
     </>
