@@ -12,7 +12,7 @@ import { bringYearAndMonthTable } from "../action/tAction";
 
 interface Todo {
   uid: UUID;
-  todo: string;
+  do: string;
   startDate: Date;
   state: string;
 }
@@ -25,15 +25,24 @@ interface listDate {
 const CalendarHome = () => {
   const dispatch = useDispatch();
 
+  let today = new Date();
+
+  let year = today.getFullYear();
+  let defaultMonth = today.getMonth() + 1;
+
   const [todoData, setTodoData] = useState<Todo[] | undefined>([]);
+  const [month, setMonth] = useState<number>(defaultMonth);
+
   useEffect(() => {
+    console.log("test");
     getTodo();
-  }, []);
+  }, [month]);
 
   const getTodo = async () => {
-    const response = await axios.get("/todo/all");
+    const response = await axios.get("/todo/" + year + "/" + month);
     const todoData: Todo[] = response.data;
     setTodoData(todoData);
+
     return todoData;
   };
 
@@ -43,7 +52,7 @@ const CalendarHome = () => {
       year: value.year(),
       month: value.month(),
     };
-    console.log({ info });
+    setMonth(value.month());
     dispatch(bringYearAndMonthTable(info));
 
     todoData?.map((todo) => {
@@ -54,7 +63,7 @@ const CalendarHome = () => {
       if (value.month() === month) {
         switch (value.date()) {
           case date:
-            listData.push({ type: todo.state, content: todo.todo });
+            listData.push({ type: todo.state, content: todo.do });
             break;
           default:
         }
@@ -66,6 +75,7 @@ const CalendarHome = () => {
 
   const dateCellRender = (value: Dayjs) => {
     const listData = getListData(value);
+
     return (
       <ul className="todolist">
         {listData.map((item: listDate) => (
