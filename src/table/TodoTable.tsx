@@ -7,6 +7,8 @@ import { UUID } from "crypto";
 import { useSelector } from "react-redux";
 import { RootState } from "../reducer";
 
+import "../css/TodoTable.css";
+
 interface Todo {
   key: UUID;
   todo: string;
@@ -82,14 +84,16 @@ const TodoTable = () => {
         const input = {
           state: "success",
         };
-        return axios.put("/todo/" + selectedRow?.uid, input).then(() => {
+        return axios.put("/todo/" + selectedRow?.uid, input).then((res) => {
           Modal.info({
             content: (
               <div>
                 <p>변경되었습니다.</p>
               </div>
             ),
-            onOk() {},
+            onOk() {
+              setSelectedRow(res.data);
+            },
           });
         });
       },
@@ -106,14 +110,16 @@ const TodoTable = () => {
         const input = {
           state: "processing",
         };
-        return axios.put("/todo/" + selectedRow?.uid, input).then(() => {
+        return axios.put("/todo/" + selectedRow?.uid, input).then((res) => {
           Modal.info({
             content: (
               <div>
                 <p>변경되었습니다.</p>
               </div>
             ),
-            onOk() {},
+            onOk() {
+              setSelectedRow(res.data);
+            },
           });
         });
       },
@@ -124,11 +130,14 @@ const TodoTable = () => {
   useEffect(() => {
     getData();
     console.log({ YearAndMonth });
-  }, [selectedRow, unFinishSelection, finishSelection]);
+  }, [selectedRow]);
 
   return (
     <>
       <div>
+        <Button>일별</Button>
+        <Button>월별</Button>
+        <Button>전체</Button>
         <Divider />
         <Table
           rowSelection={{
@@ -149,7 +158,7 @@ const TodoTable = () => {
               완료
             </Button>
           ) : (
-            <Button className="finishButton" danger onClick={unFinishSelection}>
+            <Button className="unFinishButton" danger onClick={unFinishSelection}>
               완료 취소
             </Button>
           )}
