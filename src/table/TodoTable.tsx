@@ -71,9 +71,26 @@ const TodoTable = () => {
   };
 
   const deleteSelection = async () => {
-    console.log(selectedRow?.uid);
-    return axios.delete("/todo/" + selectedRow?.uid).then((res) => {
-      setSelectedRow(res.data);
+    confirm({
+      content: "삭제하시겠습니까?",
+      onOk() {
+        const input = {
+          state: "success",
+        };
+        return axios.delete("/todo/" + selectedRow?.uid).then((res) => {
+          Modal.info({
+            content: (
+              <div>
+                <p>변경되었습니다.</p>
+              </div>
+            ),
+            onOk() {
+              setSelectedRow(res.data);
+            },
+          });
+        });
+      },
+      onCancel() {},
     });
   };
 
