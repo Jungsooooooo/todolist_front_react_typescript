@@ -11,7 +11,7 @@ import "../css/TodoTable.css";
 
 interface Todo {
   key: UUID;
-  todo: string;
+  do: string;
   startDate: Date;
   uid: UUID;
   state: string;
@@ -19,8 +19,8 @@ interface Todo {
 const columns = [
   {
     title: "할 일",
-    dataIndex: "todo",
-    key: "todo",
+    dataIndex: "do",
+    key: "do",
   },
   {
     title: "시작일",
@@ -48,7 +48,7 @@ const TodoTable = () => {
   const [selectedRow, setSelectedRow] = useState<Todo | undefined>();
 
   const getData = async () => {
-    return await axios.get("/todo/all").then((res) => {
+    return await axios.get("/todo/" + YearAndMonth.year + "/" + YearAndMonth.month).then((res) => {
       console.log(res.data);
       let datas = res.data;
       datas.map((data: Todo) => {
