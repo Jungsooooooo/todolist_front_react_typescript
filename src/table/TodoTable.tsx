@@ -160,6 +160,7 @@ const TodoTable = () => {
               </div>
             ),
             onOk() {
+              setSelectedRow(null);
               setSelectedRow(res.data);
             },
           });
@@ -187,6 +188,7 @@ const TodoTable = () => {
               </div>
             ),
             onOk() {
+              setSelectedRow(null);
               setSelectedRow(res.data);
             },
           });
