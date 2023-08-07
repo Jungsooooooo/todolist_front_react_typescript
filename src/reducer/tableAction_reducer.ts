@@ -7,8 +7,8 @@ type YearAndMonth = {
 };
 
 const initialState = {
-  year: null,
-  month: null,
+  year: 0,
+  month: 0,
 };
 
 type Actiontype = ReturnType<typeof bringYearAndMonthTable>;
