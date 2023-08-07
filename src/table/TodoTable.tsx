@@ -1,10 +1,15 @@
 import { useEffect, useState } from "react";
-import { Divider, Table, Button, Modal } from "antd";
+import { Divider, Table, Button, Modal, DatePicker } from "antd";
+import type { DatePickerProps } from "antd";
+import dayjs from "dayjs";
 
 import axios from "axios";
 import { UUID } from "crypto";
 
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { bringYearAndMonthTable } from "../action/tAction";
+
 import { RootState } from "../reducer";
 
 import "../css/TodoTable.css";
@@ -44,8 +49,13 @@ const TodoTable = () => {
   const { confirm } = Modal;
   const [allData, setAllData] = useState<Todo[] | undefined>([]);
   const [selectionType, setSelectionType] = useState<"checkbox">("checkbox");
+  const [month, setMonth] = useState<number | undefined>();
+  const monthFormat = "YYYY/MM";
+  const formattedMonth = YearAndMonth.month.toString().padStart(2, "0");
+  const defaultDate = YearAndMonth.year + "/" + formattedMonth;
+  const [selectedRow, setSelectedRow] = useState<Todo | null>();
 
-  const [selectedRow, setSelectedRow] = useState<Todo | undefined>();
+  const dispatch = useDispatch();
 
   const getData = async () => {
     return await axios.get("/todo/" + YearAndMonth.year + "/" + YearAndMonth.month).then((res) => {
@@ -66,8 +76,45 @@ const TodoTable = () => {
   const rowSelection = {
     onChange: (selectedRowKeys: React.Key[], selectedRows: Todo[]) => {
       console.log(`selectedRowKeys: ${selectedRowKeys}`, "selectedRows: ", selectedRows);
+
       return setSelectedRow(selectedRows[0]);
     },
+  };
+
+  const onChange: DatePickerProps["onChange"] = (date, dateString) => {
+    console.log(date, dateString);
+
+    if (date === undefined || date === null) {
+      const nullInput = {
+        year: 0,
+        month: 0,
+      };
+      dispatch(bringYearAndMonthTable(nullInput));
+      setMonth(0);
+    } else {
+      const input = {
+        year: date?.year(),
+        month: date?.month() + 1,
+      };
+      dispatch(bringYearAndMonthTable(input));
+      setMonth(date?.month() + 1);
+    }
+  };
+
+  const showAlldata = async () => {
+    return await axios.get("/todo/all").then((res) => {
+      console.log(res.data);
+      let datas = res.data;
+      datas.map((data: Todo) => {
+        data.key = data.uid;
+        if (data.state === "processing") {
+          data.state = "진행중";
+        } else {
+          data.state = "완료";
+        }
+      });
+      setAllData(datas);
+    });
   };
 
   const deleteSelection = async () => {
@@ -85,7 +132,7 @@ const TodoTable = () => {
               </div>
             ),
             onOk() {
-              setSelectedRow(res.data);
+              setSelectedRow(null);
             },
           });
         });
@@ -146,15 +193,20 @@ const TodoTable = () => {
 
   useEffect(() => {
     getData();
-    console.log({ YearAndMonth });
-  }, [selectedRow]);
+  }, [selectedRow, month]);
 
   return (
     <>
       <div>
-        <Button>일별</Button>
-        <Button>월별</Button>
-        <Button>전체</Button>
+        <Button onClick={getData}>월별</Button>
+        <div>
+          <DatePicker
+            onChange={onChange}
+            picker="month"
+            defaultValue={dayjs(defaultDate, monthFormat)}
+            format={monthFormat}
+          />
+        </div>
         <Divider />
         <Table
           rowSelection={{
