@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Divider, Table, Button, Modal, DatePicker } from "antd";
 import type { DatePickerProps } from "antd";
 import dayjs from "dayjs";
@@ -18,6 +19,7 @@ interface Todo {
   key: UUID;
   do: string;
   startDate: Date;
+  endDate: Date;
   uid: UUID;
   state: string;
 }
@@ -56,6 +58,7 @@ const TodoTable = () => {
   const [selectedRow, setSelectedRow] = useState<Todo | null>();
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const getData = async () => {
     return await axios.get("/todo/" + YearAndMonth.year + "/" + YearAndMonth.month).then((res) => {
@@ -147,6 +150,7 @@ const TodoTable = () => {
       onOk() {
         const input = {
           state: "success",
+          endDate: new Date(),
         };
         return axios.put("/todo/" + selectedRow?.uid, input).then((res) => {
           Modal.info({
@@ -173,6 +177,7 @@ const TodoTable = () => {
       onOk() {
         const input = {
           state: "processing",
+          endDate: null,
         };
         return axios.put("/todo/" + selectedRow?.uid, input).then((res) => {
           Modal.info({
@@ -191,6 +196,14 @@ const TodoTable = () => {
     });
   };
 
+  const goToCreate = () => {
+    navigate("/create");
+  };
+
+  const goToTable = () => {
+    navigate("/");
+  };
+
   useEffect(() => {
     getData();
   }, [selectedRow, month]);
@@ -198,9 +211,13 @@ const TodoTable = () => {
   return (
     <>
       <div>
-        <Button onClick={getData}>월별</Button>
+        <Button type="primary" onClick={goToCreate}>
+          할 일 적기
+        </Button>
+        <Button onClick={goToTable}>달력으로 보기</Button>
         <div>
           <DatePicker
+            className="chooseDate"
             onChange={onChange}
             picker="month"
             defaultValue={dayjs(defaultDate, monthFormat)}
