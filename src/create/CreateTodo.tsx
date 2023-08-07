@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import type { DatePickerProps } from "antd";
-import { DatePicker, Space, Input, Form, Button } from "antd";
+import { DatePicker, Space, Input, Form, Button, Modal } from "antd";
 import "../css/CreateTodo.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const CreateTodo = () => {
   const { TextArea } = Input;
+  const { confirm } = Modal;
+
   const navigate = useNavigate();
   // const axios = require("axios").default;
   const dayjs = require("dayjs");
@@ -22,13 +24,30 @@ const CreateTodo = () => {
   };
 
   const createTodo = () => {
-    console.log({ startDate });
-    const input = {
-      do: todo,
-      startDate: startDate,
-    };
-    axios.post("/todo", input).then((res) => {
-      navigate("/");
+    confirm({
+      content: "생성하시겠습니까?",
+      onOk() {
+        const input = {
+          do: todo,
+          startDate: startDate,
+        };
+        axios.post("/todo", input).then((res) => {
+          Modal.confirm({
+            content: (
+              <div>
+                <p>생성되었습니다.</p>
+              </div>
+            ),
+            okText: "할일 계속 적기",
+            cancelText: "달력으로 이동",
+            onOk() {},
+            onCancel() {
+              navigate("/");
+            },
+          });
+        });
+      },
+      onCancel() {},
     });
   };
 
