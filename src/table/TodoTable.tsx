@@ -78,21 +78,26 @@ const TodoTable = () => {
 
   const getDateData = async () => {
     console.log(YearAndMonth);
-    return await axios
-      .get("/todo/date/" + YearAndMonth.year + "/" + YearAndMonth.month + "/" + YearAndMonth.date)
-      .then((res) => {
-        console.log(res.data);
-        let datas = res.data;
-        datas.map((data: Todo) => {
-          data.key = data.uid;
-          if (data.state === "processing") {
-            data.state = "진행중";
-          } else {
-            data.state = "완료";
-          }
+
+    if (YearAndMonth.year === 0) {
+      return null;
+    } else {
+      return await axios
+        .get("/todo/date/" + YearAndMonth.year + "/" + YearAndMonth.month + "/" + YearAndMonth.date)
+        .then((res) => {
+          console.log(res.data);
+          let datas = res.data;
+          datas.map((data: Todo) => {
+            data.key = data.uid;
+            if (data.state === "processing") {
+              data.state = "진행중";
+            } else {
+              data.state = "완료";
+            }
+          });
+          setAllData(datas);
         });
-        setAllData(datas);
-      });
+    }
   };
 
   const rowSelection = {
@@ -239,9 +244,9 @@ const TodoTable = () => {
           <DatePicker
             className="chooseDate"
             onChange={onChange}
-            picker="month"
-            defaultValue={dayjs(defaultDate, monthFormat)}
-            format={monthFormat}
+            // picker="date"
+            // defaultValue={dayjs(defaultDate, monthFormat)}
+            // format={monthFormat}
           />
         </div>
         <Divider />
