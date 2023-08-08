@@ -1,13 +1,14 @@
-import { CallTableInfo } from "./ttypes"
+import { CallTableInfo } from "./ttypes";
 
 interface info {
-    year:any;
-    month:any;
+  year: number;
+  month: number;
+  date: number;
 }
 
-export function bringYearAndMonthTable(test:info){
-    return {
-        type:CallTableInfo,
-        payload:test     
-    }
+export function bringYearAndMonthTable(test: info) {
+  return {
+    type: CallTableInfo,
+    payload: test,
+  };
 }
