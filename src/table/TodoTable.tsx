@@ -54,7 +54,7 @@ const TodoTable = () => {
   const [month, setMonth] = useState<number | undefined>();
   const monthFormat = "YYYY/MM";
   const formattedMonth = YearAndMonth.month.toString().padStart(2, "0");
-  const defaultDate = YearAndMonth.year + "/" + formattedMonth;
+  const defaultDate = YearAndMonth.year + "/" + formattedMonth + YearAndMonth.date;
   const [selectedRow, setSelectedRow] = useState<Todo | null>();
 
   const dispatch = useDispatch();
@@ -76,6 +76,25 @@ const TodoTable = () => {
     });
   };
 
+  const getDateData = async () => {
+    console.log(YearAndMonth);
+    return await axios
+      .get("/todo/date/" + YearAndMonth.year + "/" + YearAndMonth.month + "/" + YearAndMonth.date)
+      .then((res) => {
+        console.log(res.data);
+        let datas = res.data;
+        datas.map((data: Todo) => {
+          data.key = data.uid;
+          if (data.state === "processing") {
+            data.state = "진행중";
+          } else {
+            data.state = "완료";
+          }
+        });
+        setAllData(datas);
+      });
+  };
+
   const rowSelection = {
     onChange: (selectedRowKeys: React.Key[], selectedRows: Todo[]) => {
       console.log(`selectedRowKeys: ${selectedRowKeys}`, "selectedRows: ", selectedRows);
@@ -91,6 +110,7 @@ const TodoTable = () => {
       const nullInput = {
         year: 0,
         month: 0,
+        date: 0,
       };
       dispatch(bringYearAndMonthTable(nullInput));
       setMonth(0);
@@ -98,6 +118,7 @@ const TodoTable = () => {
       const input = {
         year: date?.year(),
         month: date?.month() + 1,
+        date: date?.date(),
       };
       dispatch(bringYearAndMonthTable(input));
       setMonth(date?.month() + 1);
@@ -124,9 +145,6 @@ const TodoTable = () => {
     confirm({
       content: "삭제하시겠습니까?",
       onOk() {
-        const input = {
-          state: "success",
-        };
         return axios.delete("/todo/" + selectedRow?.uid).then((res) => {
           Modal.info({
             content: (
@@ -207,7 +225,7 @@ const TodoTable = () => {
   };
 
   useEffect(() => {
-    getData();
+    getDateData();
   }, [selectedRow, month]);
 
   return (

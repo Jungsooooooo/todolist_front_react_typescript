@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Calendar, Badge } from "antd";
+import type { CalendarMode } from "antd/es/calendar/generateCalendar";
 import { Dayjs } from "dayjs";
 import type { BadgeProps } from "antd";
 import type { CellRenderInfo } from "rc-picker/lib/interface";
@@ -46,14 +47,20 @@ const CalendarHome = () => {
     return todoData;
   };
 
-  const getListData = (value: Dayjs) => {
-    let listData: listDate[] = [];
+  const handleDateSelect = (value: Dayjs) => {
+    console.log(value);
     let info = {
       year: value.year(),
-      month: value.month(),
+      month: value.month() + 1,
+      date: value.date(),
     };
-    setMonth(value.month());
+    // console.log(value.month());
+    setMonth(value.month() + 1);
     dispatch(bringYearAndMonthTable(info));
+  };
+
+  const getListData = (value: Dayjs) => {
+    let listData: listDate[] = [];
 
     todoData?.map((todo) => {
       let fulldate = new Date(todo.startDate);
@@ -93,7 +100,7 @@ const CalendarHome = () => {
     return info.originNode;
   };
 
-  return <Calendar cellRender={cellRender} />;
+  return <Calendar cellRender={cellRender} onSelect={handleDateSelect} />;
 };
 
 export default CalendarHome;
