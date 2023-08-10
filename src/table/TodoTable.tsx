@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Divider, Table, Button, Modal, DatePicker } from "antd";
+import { Divider, Table, Button, Modal, DatePicker, Select } from "antd";
 import type { DatePickerProps } from "antd";
 import dayjs from "dayjs";
 
@@ -52,9 +52,13 @@ const TodoTable = () => {
   const [allData, setAllData] = useState<Todo[] | undefined>([]);
   const [selectionType, setSelectionType] = useState<"checkbox">("checkbox");
   const [month, setMonth] = useState<number | undefined>();
+  const [monthOrDate, setMonthOrDate] = useState<string | undefined>("date");
   const monthFormat = "YYYY/MM";
+  const dateFormat = "YYYY-MM-DD";
   const formattedMonth = YearAndMonth.month.toString().padStart(2, "0");
-  const defaultDate = YearAndMonth.year + "/" + formattedMonth + YearAndMonth.date;
+  const formattedDate = YearAndMonth.date.toString().padStart(2, "0");
+  const defaultDate = YearAndMonth.year + "-" + formattedMonth + "-" + formattedDate;
+  const defaultMonth = YearAndMonth.year + "/" + formattedMonth;
   const [selectedRow, setSelectedRow] = useState<Todo | null>();
 
   const dispatch = useDispatch();
@@ -229,9 +233,19 @@ const TodoTable = () => {
     navigate("/");
   };
 
+  const chooseSelectBox = (value: string) => {
+    console.log(value);
+    setMonthOrDate(value);
+  };
+
   useEffect(() => {
-    getDateData();
-  }, [selectedRow, month]);
+    if (monthOrDate === "date") {
+      getDateData();
+    } else {
+      getData();
+    }
+    console.log({ selectedRow });
+  }, [selectedRow, month, monthOrDate]);
 
   return (
     <>
@@ -240,14 +254,32 @@ const TodoTable = () => {
           할 일 적기
         </Button>
         <Button onClick={goToTable}>달력으로 보기</Button>
-        <div>
-          <DatePicker
-            className="chooseDate"
-            onChange={onChange}
-            // picker="date"
-            // defaultValue={dayjs(defaultDate, monthFormat)}
-            // format={monthFormat}
+        <div className="selectAndChoose">
+          <Select
+            defaultValue="일별"
+            onChange={chooseSelectBox}
+            options={[
+              { value: "date", label: "일별" },
+              { value: "month", label: "월별" },
+            ]}
           />
+          {monthOrDate === "date" ? (
+            <DatePicker
+              className="chooseDate"
+              onChange={onChange}
+              // picker="date"
+              defaultValue={dayjs(defaultDate, monthFormat)}
+              // format={monthFormat}
+            />
+          ) : (
+            <DatePicker
+              className="chooseDate"
+              onChange={onChange}
+              picker="month"
+              defaultValue={dayjs(defaultMonth, monthFormat)}
+              format={monthFormat}
+            />
+          )}
         </div>
         <Divider />
         <Table
@@ -264,7 +296,7 @@ const TodoTable = () => {
       ) : (
         <div>
           <Button onClick={deleteSelection}>할 일 삭제</Button>
-          {selectedRow.state === "진행중" ? (
+          {selectedRow.state === "진행중" || selectedRow.state === "processing" ? (
             <Button className="finishButton" danger onClick={finishSelection}>
               완료
             </Button>
