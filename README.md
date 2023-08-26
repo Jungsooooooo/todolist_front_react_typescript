@@ -13,11 +13,11 @@ typescript를 통해 개발해 본 적이 없어서 typescript기반으로 react
 달력에 그 날 해야할 일들이 보인다.
 화면 위 왼쪽에 할 일 적기 라는 버튼을 누르면
 
-다음과 같은 화면이 뜬다.
-2)![image](https://github.com/Jungsooooooo/todolist_front_react_typescript/assets/94541011/3875ebef-6d29-4235-a247-7eedaec80990)
+2)다음과 같은 화면이 뜬다.
+![image](https://github.com/Jungsooooooo/todolist_front_react_typescript/assets/94541011/3875ebef-6d29-4235-a247-7eedaec80990)
 
-할 일을 해야할 날짜를 선택하고 내용을 입력 후 생성 버튼을 누르면
-3)![image](https://github.com/Jungsooooooo/todolist_front_react_typescript/assets/94541011/86b9ee98-a0bf-499c-a832-31d9050fdeb8)
+3)할 일을 해야할 날짜를 선택하고 내용을 입력 후 생성 버튼을 누르면
+![image](https://github.com/Jungsooooooo/todolist_front_react_typescript/assets/94541011/86b9ee98-a0bf-499c-a832-31d9050fdeb8)
 
 선택할 수 있는 팝업창이 뜨며 ok를 누르면 데이터가 생성 된다.
 ![image](https://github.com/Jungsooooooo/todolist_front_react_typescript/assets/94541011/3a702b30-ee01-4c37-becc-ef7bb3658b70)
