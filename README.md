@@ -26,3 +26,8 @@ typescript를 통해 개발해 본 적이 없어서 typescript기반으로 react
 ![image](https://github.com/Jungsooooooo/todolist_front_react_typescript/assets/94541011/e6c6d746-52ef-49c4-8758-5d6d8d057f47)
 
 
+4) 보기 전환 모드(달력 및 테이블 보기)
+i) 기본적으로 할 일 적기는 달력이 기본이며 테이블 모드로도 볼 수 있다.
+![image](https://github.com/Jungsooooooo/todolist_front_react_typescript/assets/94541011/2ad6c4a8-d7c5-48ed-aa91-87528248d08f)
+ii) 테이블 보기에서는 월별, 일별로 볼 수 있게 구현 되어 있다.(일별 i)번 참조)
+![image](https://github.com/Jungsooooooo/todolist_front_react_typescript/assets/94541011/9b7a4103-2112-4013-b981-517813fda831)
