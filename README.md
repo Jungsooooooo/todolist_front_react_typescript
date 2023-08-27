@@ -24,11 +24,4 @@ typescript를 통해 개발해 본 적이 없어서 typescript기반으로 react
 
 ![image](https://github.com/Jungsooooooo/todolist_front_react_typescript/assets/94541011/e6c6d746-52ef-49c4-8758-5d6d8d057f47)
 
-
-
-
-
-![image](https://github.com/Jungsooooooo/todolist_front_react_typescript/assets/94541011/d76d7da4-5bd4-4d4d-9225-ba11a15e4a67)
-
-
-
+![image](https://github.com/Jungsooooooo/todolist_front_react_typescript/assets/94541011/3538a848-d2e2-485a-9c83-9674bdf08f01)
