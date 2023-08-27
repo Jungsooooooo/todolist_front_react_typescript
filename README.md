@@ -18,10 +18,11 @@ typescript를 통해 개발해 본 적이 없어서 typescript기반으로 react
 ![image](https://github.com/Jungsooooooo/todolist_front_react_typescript/assets/94541011/3875ebef-6d29-4235-a247-7eedaec80990)
 
 3)할 일을 해야할 날짜를 선택하고 내용을 입력 후 생성 버튼을 누르면
-![image](https://github.com/Jungsooooooo/todolist_front_react_typescript/assets/94541011/86b9ee98-a0bf-499c-a832-31d9050fdeb8)
+![image](https://github.com/Jungsooooooo/todolist_front_react_typescript/assets/94541011/d3b9cf19-bb1c-4236-9bc2-522a8683b8fd)
+
 
 선택할 수 있는 팝업창이 뜨며 ok를 누르면 데이터가 생성 된다.
 
 ![image](https://github.com/Jungsooooooo/todolist_front_react_typescript/assets/94541011/e6c6d746-52ef-49c4-8758-5d6d8d057f47)
 
-![image](https://github.com/Jungsooooooo/todolist_front_react_typescript/assets/94541011/3538a848-d2e2-485a-9c83-9674bdf08f01)
+
