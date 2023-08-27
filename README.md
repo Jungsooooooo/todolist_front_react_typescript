@@ -22,7 +22,8 @@ typescript를 통해 개발해 본 적이 없어서 typescript기반으로 react
 
 선택할 수 있는 팝업창이 뜨며 ok를 누르면 데이터가 생성 된다.
 
-![image](https://github.com/Jungsooooooo/todolist_front_react_typescript/assets/94541011/d7ecbe4b-3836-4fef-a8df-e471651e8909)
+![image](https://github.com/Jungsooooooo/todolist_front_react_typescript/assets/94541011/e6c6d746-52ef-49c4-8758-5d6d8d057f47)
+
 
 
 
