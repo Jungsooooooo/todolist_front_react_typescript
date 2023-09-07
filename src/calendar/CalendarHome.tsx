@@ -35,7 +35,6 @@ const CalendarHome = () => {
   const [month, setMonth] = useState<number>(defaultMonth);
 
   useEffect(() => {
-    console.log("test");
     getTodo();
   }, [month]);
 
@@ -87,7 +86,10 @@ const CalendarHome = () => {
       <ul className="todolist">
         {listData.map((item: listDate) => (
           <li className="no_dot" key={item.content}>
-            <Badge status={item.type as BadgeProps["status"]} text={item.content} />
+            <Badge
+              status={item.type as BadgeProps["status"]}
+              text={item.content}
+            />
           </li>
         ))}
       </ul>
