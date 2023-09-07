@@ -1,9 +1,20 @@
 import React from "react";
 import { Button, Checkbox, Form, Input } from "antd";
 import "../css/Login.css";
+import axios from "axios";
+// import * as bcrypt from "bcrypt";
 
-const onFinish = (values: any) => {
+var bcrypt = require("bcryptjs");
+
+const onFinish = async (values: any) => {
   console.log("Success:", values);
+
+  const input = {
+    id: values.username,
+    password: values.password,
+  };
+
+  return axios.post("/user/login", input).then((res) => console.log(res));
 };
 
 const onFinishFailed = (errorInfo: any) => {
