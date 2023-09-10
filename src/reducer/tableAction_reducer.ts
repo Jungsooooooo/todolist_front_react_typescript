@@ -1,6 +1,7 @@
 import { CallTableInfo } from "../action/ttypes";
 import { LoginInfo } from "../action/ttypes";
 import { bringYearAndMonthTable } from "../action/tAction";
+import { bringLoginInfo } from "../action/tAction";
 
 import { UUID } from "crypto";
 
@@ -22,11 +23,11 @@ interface loginInfo {
 }
 
 type Actiontype = ReturnType<typeof bringYearAndMonthTable>;
+type LoginActionType = ReturnType<typeof bringLoginInfo>;
 
-export default function callTableReducer(
+function callTableReducer(
   stateYearAndMonth: YearAndMonth = initialState,
-  stateLogin: loginInfo,
-  action: any
+  action: Actiontype
 ) {
   switch (action.type) {
     case CallTableInfo:
@@ -36,12 +37,20 @@ export default function callTableReducer(
         month: action.payload.month,
         date: action.payload.date,
       };
-    case LoginInfo:
-      return {
-        id: action.payload.id,
-        uid: action.payload.uid,
-      };
     default:
       return stateYearAndMonth;
   }
+
+  function loginSet(logininfor: loginInfo, action: LoginActionType) {
+    switch (action.type) {
+      case LoginInfo:
+        return {
+          ...logininfor,
+          id: action.payload.id,
+          uid: action.payload.uid,
+        };
+    }
+  }
 }
+
+export default callTableReducer;
