@@ -2,9 +2,7 @@ import React from "react";
 import { Button, Checkbox, Form, Input } from "antd";
 import "../css/Login.css";
 import axios from "axios";
-// import * as bcrypt from "bcrypt";
-
-var bcrypt = require("bcryptjs");
+import { getCookie, setCookie } from "../cookie/Cookie";
 
 const onFinish = async (values: any) => {
   console.log("Success:", values);
@@ -14,11 +12,27 @@ const onFinish = async (values: any) => {
     password: values.password,
   };
 
-  return axios.post("/user/login", input).then((res) => console.log(res));
+  const currentDate = new Date();
+  currentDate.setMinutes(currentDate.getMinutes() + 1);
+
+  axios.post("/authentification/login", input).then((res) =>
+    setCookie("token", "Bearer " + res.data.accessToken, {
+      expires: currentDate,
+    })
+  );
 };
 
 const onFinishFailed = (errorInfo: any) => {
   console.log("Failed:", errorInfo);
+};
+
+const test = () => {
+  console.log(getCookie("token"));
+  return axios
+    .get("/authentification/test", {
+      headers: { Authorization: getCookie("token") },
+    })
+    .then((res) => console.log(res));
 };
 
 type FieldType = {
@@ -67,6 +81,9 @@ const Login = () => {
 
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
           <Button type="primary" htmlType="submit">
+            Submit
+          </Button>
+          <Button type="primary" onClick={test}>
             Submit
           </Button>
         </Form.Item>
