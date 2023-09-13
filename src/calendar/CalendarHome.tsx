@@ -7,6 +7,7 @@ import type { CellRenderInfo } from "rc-picker/lib/interface";
 import { UUID } from "crypto";
 import axios from "axios";
 import { useDispatch } from "react-redux";
+import { getCookie } from "../cookie/Cookie";
 
 import "../css/CalendarHome.css";
 import { bringYearAndMonthTable } from "../action/tAction";
@@ -39,7 +40,9 @@ const CalendarHome = () => {
   }, [month]);
 
   const getTodo = async () => {
-    const response = await axios.get("/todo/" + year + "/" + month);
+    const response = await axios.get("/todo/" + year + "/" + month, {
+      headers: { Authorization: getCookie("token") },
+    });
     const todoData: Todo[] = response.data;
     setTodoData(todoData);
 

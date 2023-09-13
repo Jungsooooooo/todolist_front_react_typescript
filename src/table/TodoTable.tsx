@@ -10,6 +10,7 @@ import { UUID } from "crypto";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { bringYearAndMonthTable } from "../action/tAction";
+import { getCookie } from "../cookie/Cookie";
 
 import { RootState } from "../reducer";
 
@@ -47,7 +48,9 @@ const columns = [
 ];
 
 const TodoTable = () => {
-  const YearAndMonth = useSelector((state: RootState) => state.callTableReducer);
+  const YearAndMonth = useSelector(
+    (state: RootState) => state.callTableReducer
+  );
   const { confirm } = Modal;
   const [allData, setAllData] = useState<Todo[] | undefined>([]);
   const [selectionType, setSelectionType] = useState<"checkbox">("checkbox");
@@ -57,7 +60,8 @@ const TodoTable = () => {
   const dateFormat = "YYYY-MM-DD";
   const formattedMonth = YearAndMonth.month.toString().padStart(2, "0");
   const formattedDate = YearAndMonth.date.toString().padStart(2, "0");
-  const defaultDate = YearAndMonth.year + "-" + formattedMonth + "-" + formattedDate;
+  const defaultDate =
+    YearAndMonth.year + "-" + formattedMonth + "-" + formattedDate;
   const defaultMonth = YearAndMonth.year + "/" + formattedMonth;
   const [selectedRow, setSelectedRow] = useState<Todo | null>();
 
@@ -65,19 +69,23 @@ const TodoTable = () => {
   const navigate = useNavigate();
 
   const getData = async () => {
-    return await axios.get("/todo/" + YearAndMonth.year + "/" + YearAndMonth.month).then((res) => {
-      console.log(res.data);
-      let datas = res.data;
-      datas.map((data: Todo) => {
-        data.key = data.uid;
-        if (data.state === "processing") {
-          data.state = "진행중";
-        } else {
-          data.state = "완료";
-        }
+    return await axios
+      .get("/todo/" + YearAndMonth.year + "/" + YearAndMonth.month, {
+        headers: { Authorization: getCookie("token") },
+      })
+      .then((res) => {
+        console.log(res.data);
+        let datas = res.data;
+        datas.map((data: Todo) => {
+          data.key = data.uid;
+          if (data.state === "processing") {
+            data.state = "진행중";
+          } else {
+            data.state = "완료";
+          }
+        });
+        setAllData(datas);
       });
-      setAllData(datas);
-    });
   };
 
   const getDateData = async () => {
@@ -87,7 +95,14 @@ const TodoTable = () => {
       return null;
     } else {
       return await axios
-        .get("/todo/date/" + YearAndMonth.year + "/" + YearAndMonth.month + "/" + YearAndMonth.date)
+        .get(
+          "/todo/date/" +
+            YearAndMonth.year +
+            "/" +
+            YearAndMonth.month +
+            "/" +
+            YearAndMonth.date
+        )
         .then((res) => {
           console.log(res.data);
           let datas = res.data;
@@ -106,7 +121,11 @@ const TodoTable = () => {
 
   const rowSelection = {
     onChange: (selectedRowKeys: React.Key[], selectedRows: Todo[]) => {
-      console.log(`selectedRowKeys: ${selectedRowKeys}`, "selectedRows: ", selectedRows);
+      console.log(
+        `selectedRowKeys: ${selectedRowKeys}`,
+        "selectedRows: ",
+        selectedRows
+      );
 
       return setSelectedRow(selectedRows[0]);
     },
@@ -296,12 +315,17 @@ const TodoTable = () => {
       ) : (
         <div>
           <Button onClick={deleteSelection}>할 일 삭제</Button>
-          {selectedRow.state === "진행중" || selectedRow.state === "processing" ? (
+          {selectedRow.state === "진행중" ||
+          selectedRow.state === "processing" ? (
             <Button className="finishButton" danger onClick={finishSelection}>
               완료
             </Button>
           ) : (
-            <Button className="unFinishButton" danger onClick={unFinishSelection}>
+            <Button
+              className="unFinishButton"
+              danger
+              onClick={unFinishSelection}
+            >
               완료 취소
             </Button>
           )}

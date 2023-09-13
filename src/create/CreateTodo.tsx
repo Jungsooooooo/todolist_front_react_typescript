@@ -4,6 +4,7 @@ import { DatePicker, Space, Input, Form, Button, Modal } from "antd";
 import "../css/CreateTodo.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { getCookie } from "../cookie/Cookie";
 
 const CreateTodo = () => {
   const { TextArea } = Input;
@@ -31,21 +32,25 @@ const CreateTodo = () => {
           do: todo,
           startDate: startDate,
         };
-        axios.post("/todo", input).then((res) => {
-          Modal.confirm({
-            content: (
-              <div>
-                <p>생성되었습니다.</p>
-              </div>
-            ),
-            okText: "할일 계속 적기",
-            cancelText: "달력으로 이동",
-            onOk() {},
-            onCancel() {
-              navigate("/");
-            },
+        axios
+          .post("/todo", input, {
+            headers: { Authorization: getCookie("token") },
+          })
+          .then((res) => {
+            Modal.confirm({
+              content: (
+                <div>
+                  <p>생성되었습니다.</p>
+                </div>
+              ),
+              okText: "할일 계속 적기",
+              cancelText: "달력으로 이동",
+              onOk() {},
+              onCancel() {
+                navigate("/");
+              },
+            });
           });
-        });
       },
       onCancel() {},
     });
