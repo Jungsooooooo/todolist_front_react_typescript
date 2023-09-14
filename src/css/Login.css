@@ -1,5 +1,9 @@
 .loginView {
-  margin: 0 auto;
-  margin-top: 20rem;
-  /* margin-right: 45rem; */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.loginTitle {
+  margin-left: 5rem;
 }
