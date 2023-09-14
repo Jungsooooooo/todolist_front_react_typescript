@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 
 const JoinUser = () => {
   const { confirm } = Modal;
+  const { Title, Link } = Typography;
+
   const nav = useNavigate();
 
   const onFinishFailed = (errorInfo: any) => {
@@ -67,6 +69,7 @@ const JoinUser = () => {
         autoComplete="off"
         className="joinView"
       >
+        <Title className="titleJoin">Join</Title>
         <Form.Item<FieldType>
           label="ID"
           name="id"
