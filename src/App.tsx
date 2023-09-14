@@ -3,6 +3,7 @@ import Home from "./home/Home";
 import CreateTodo from "./create/CreateTodo";
 import TodoTable from "./table/TodoTable";
 import Login from "./login/Login";
+import JoinUser from "./login/JoinUser";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { getCookie } from "./cookie/Cookie";
 import PrivateRoute from "./PrivateRoute";
@@ -15,6 +16,7 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path="/join" element={<JoinUser />} />
           <Route
             path="/"
             element={
