@@ -8,8 +8,6 @@ import { UUID } from "crypto";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { getCookie } from "../cookie/Cookie";
-import { useSelector } from "react-redux";
-import { RootState } from "../reducer";
 
 import "../css/CalendarHome.css";
 import { bringYearAndMonthTable } from "../action/tAction";
@@ -29,8 +27,6 @@ interface listDate {
 
 const CalendarHome = () => {
   const dispatch = useDispatch();
-  const example = useSelector((state: RootState) => state);
-  console.log({ example });
 
   let today = new Date();
 

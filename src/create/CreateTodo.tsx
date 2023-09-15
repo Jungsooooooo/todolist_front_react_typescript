@@ -5,8 +5,12 @@ import "../css/CreateTodo.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { getCookie } from "../cookie/Cookie";
+import { useSelector } from "react-redux";
+import { RootState } from "../reducer";
 
 const CreateTodo = () => {
+  const user = useSelector((state: RootState) => state.loginSet);
+  console.log({ user });
   const { TextArea } = Input;
   const { confirm } = Modal;
 
@@ -31,6 +35,7 @@ const CreateTodo = () => {
         const input = {
           do: todo,
           startDate: startDate,
+          uid: user.uid,
         };
         axios
           .post("/todo", input, {
