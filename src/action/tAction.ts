@@ -9,8 +9,7 @@ interface info {
 }
 
 interface loginInfo {
-  id: string;
-  uid: UUID;
+  uid: string;
 }
 
 export function bringYearAndMonthTable(test: info) {

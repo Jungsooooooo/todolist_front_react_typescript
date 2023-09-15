@@ -1,9 +1,5 @@
 import { CallTableInfo } from "../action/ttypes";
-import { LoginInfo } from "../action/ttypes";
 import { bringYearAndMonthTable } from "../action/tAction";
-import { bringLoginInfo } from "../action/tAction";
-
-import { UUID } from "crypto";
 
 type YearAndMonth = {
   year: number;
@@ -17,13 +13,7 @@ const initialState = {
   date: 1,
 };
 
-interface loginInfo {
-  id: string;
-  uid: UUID;
-}
-
 type Actiontype = ReturnType<typeof bringYearAndMonthTable>;
-type LoginActionType = ReturnType<typeof bringLoginInfo>;
 
 function callTableReducer(
   stateYearAndMonth: YearAndMonth = initialState,
@@ -39,17 +29,6 @@ function callTableReducer(
       };
     default:
       return stateYearAndMonth;
-  }
-
-  function loginSet(logininfor: loginInfo, action: LoginActionType) {
-    switch (action.type) {
-      case LoginInfo:
-        return {
-          ...logininfor,
-          id: action.payload.id,
-          uid: action.payload.uid,
-        };
-    }
   }
 }
 
