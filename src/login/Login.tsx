@@ -3,8 +3,10 @@ import { Button, Form, Input, Typography } from "antd";
 import "../css/Login.css";
 import axios from "axios";
 import { getCookie, setCookie } from "../cookie/Cookie";
-import { Navigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { bringLoginInfo } from "../action/tAction";
+import { useSelector } from "react-redux";
 
 const { Title, Link } = Typography;
 
@@ -20,6 +22,7 @@ type FieldType = {
 
 const Login = () => {
   const nav = useNavigate();
+  const dispatch = useDispatch();
   const go = () => {
     nav("/");
   };
@@ -40,6 +43,8 @@ const Login = () => {
         setCookie("token", "Bearer " + res.data.accessToken, {
           expires: currentDate,
         });
+        dispatch(bringLoginInfo({ uid: res.data.uid }));
+
         go();
       }
     });
