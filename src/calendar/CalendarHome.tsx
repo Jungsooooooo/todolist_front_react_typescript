@@ -24,6 +24,7 @@ interface Todo {
 interface listDate {
   type: string;
   content: string;
+  uid: string;
 }
 
 const CalendarHome = () => {
@@ -76,7 +77,11 @@ const CalendarHome = () => {
       if (value.month() === month) {
         switch (value.date()) {
           case date:
-            listData.push({ type: todo.state, content: todo.do });
+            listData.push({
+              type: todo.state,
+              content: todo.do,
+              uid: todo.uid,
+            });
             break;
           default:
         }
@@ -92,7 +97,7 @@ const CalendarHome = () => {
     return (
       <ul className="todolist">
         {listData.map((item: listDate) => (
-          <li className="no_dot" key={item.content}>
+          <li className="no_dot" key={item.uid}>
             <Badge
               status={item.type as BadgeProps["status"]}
               text={item.content}
