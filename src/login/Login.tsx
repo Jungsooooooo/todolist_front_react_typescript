@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button, Form, Input, Typography } from "antd";
 import "../css/Login.css";
 import axios from "axios";
@@ -6,7 +6,6 @@ import { getCookie, setCookie } from "../cookie/Cookie";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { bringLoginInfo } from "../action/tAction";
-import { useSelector } from "react-redux";
 
 const { Title, Link } = Typography;
 
@@ -26,6 +25,12 @@ const Login = () => {
   const go = () => {
     nav("/");
   };
+
+  useEffect(() => {
+    if (getCookie("token") !== undefined) {
+      go();
+    }
+  }, []);
 
   const onFinish = async (values: any) => {
     console.log("Success:", values);
