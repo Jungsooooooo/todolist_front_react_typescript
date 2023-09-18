@@ -35,7 +35,7 @@ const CreateTodo = () => {
         const input = {
           do: todo,
           startDate: startDate,
-          uid: user.uid,
+          user: user.uid,
         };
         axios
           .post("/todo", input, {
