@@ -51,6 +51,8 @@ const TodoTable = () => {
   const YearAndMonth = useSelector(
     (state: RootState) => state.callTableReducer
   );
+
+  const userUid = useSelector((state: RootState) => state.loginSet);
   const { confirm } = Modal;
   const [allData, setAllData] = useState<Todo[] | undefined>([]);
   const [selectionType, setSelectionType] = useState<"checkbox">("checkbox");
@@ -69,8 +71,13 @@ const TodoTable = () => {
   const navigate = useNavigate();
 
   const getData = async () => {
+    const input = {
+      year: YearAndMonth.year,
+      month: YearAndMonth.month,
+      user: userUid.uid,
+    };
     return await axios
-      .get("/todo/" + YearAndMonth.year + "/" + YearAndMonth.month, {
+      .post("/todo/findtododata", input, {
         headers: { Authorization: getCookie("token") },
       })
       .then((res) => {
@@ -94,17 +101,17 @@ const TodoTable = () => {
     if (YearAndMonth.year === 0) {
       return null;
     } else {
+      const input = {
+        year: YearAndMonth.year,
+        month: YearAndMonth.month,
+        date: YearAndMonth.date,
+        user: userUid.uid,
+      };
       return await axios
-        .get(
-          "/todo/date/" +
-            YearAndMonth.year +
-            "/" +
-            YearAndMonth.month +
-            "/" +
-            YearAndMonth.date
-        )
+        .post("/todo/findtododatafortable", input, {
+          headers: { Authorization: getCookie("token") },
+        })
         .then((res) => {
-          console.log(res.data);
           let datas = res.data;
           datas.map((data: Todo) => {
             data.key = data.uid;
