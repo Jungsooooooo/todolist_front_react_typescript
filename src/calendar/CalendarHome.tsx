@@ -8,6 +8,8 @@ import { UUID } from "crypto";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { getCookie } from "../cookie/Cookie";
+import { useSelector } from "react-redux";
+import { RootState } from "../reducer";
 
 import "../css/CalendarHome.css";
 import { bringYearAndMonthTable } from "../action/tAction";
@@ -27,6 +29,9 @@ interface listDate {
 
 const CalendarHome = () => {
   const dispatch = useDispatch();
+  const userUid = useSelector((state: RootState) => state.loginSet);
+
+  console.log({ userUid });
 
   let today = new Date();
 
@@ -41,7 +46,12 @@ const CalendarHome = () => {
   }, [month]);
 
   const getTodo = async () => {
-    const response = await axios.get("/todo/" + year + "/" + month, {
+    const input = {
+      year: year,
+      month: month,
+      user: userUid.uid,
+    };
+    const response = await axios.post("/todo/findtododata", input, {
       headers: { Authorization: getCookie("token") },
     });
     const todoData: Todo[] = response.data;
