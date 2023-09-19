@@ -7,3 +7,12 @@
 .titleJoin {
   margin-left: 5rem;
 }
+.idcheckbutton {
+  float: right;
+  width: 25%;
+  margin-left: 0.3rem;
+}
+
+.inputidforjoin {
+  margin-left: 2rem;
+}

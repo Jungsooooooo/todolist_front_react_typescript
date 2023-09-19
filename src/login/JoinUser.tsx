@@ -55,6 +55,22 @@ const JoinUser = () => {
       },
     });
   };
+  const checkIdValid = () => {
+    console.log("check");
+    let idvalue = document.getElementById("basic_id") as HTMLInputElement;
+    let id = idvalue.value;
+    axios.get("/user/check/" + id).then((res) => {
+      if (res.data.length > 0) {
+        Modal.info({
+          content: "사용중 인 아이디 입니다.",
+        });
+      } else {
+        Modal.info({
+          content: "사용가능한 아이디 입니다.",
+        });
+      }
+    });
+  };
 
   return (
     <>
@@ -70,14 +86,18 @@ const JoinUser = () => {
         className="joinView"
       >
         <Title className="titleJoin">Join</Title>
-        <Form.Item<FieldType>
-          label="ID"
-          name="id"
-          rules={[{ required: true, message: "Please input your id!" }]}
-        >
-          <Input />
-        </Form.Item>
-
+        <div className="inputidforjoin">
+          <Button className="idcheckbutton" onClick={checkIdValid}>
+            Check
+          </Button>
+          <Form.Item<FieldType>
+            label="ID"
+            name="id"
+            rules={[{ required: true, message: "Please input your id!" }]}
+          >
+            <Input />
+          </Form.Item>
+        </div>
         <Form.Item<FieldType>
           label="Nickname"
           name="nickname"
