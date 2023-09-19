@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Button, Form, Input, Typography } from "antd";
+import { Button, Form, Input, Typography, Modal } from "antd";
 import "../css/Login.css";
 import axios from "axios";
 import { getCookie, setCookie } from "../cookie/Cookie";
@@ -43,16 +43,26 @@ const Login = () => {
     const currentDate = new Date();
     currentDate.setMinutes(currentDate.getMinutes() + 60);
 
-    return axios.post("/authentification/login", input).then((res) => {
-      if (res.status === 201) {
-        setCookie("token", "Bearer " + res.data.accessToken, {
-          expires: currentDate,
-        });
-        dispatch(bringLoginInfo({ uid: res.data.uid }));
+    return axios
+      .post("/authentification/login", input)
+      .then((res) => {
+        console.log({ res });
+        if (res.status === 201) {
+          setCookie("token", "Bearer " + res.data.accessToken, {
+            expires: currentDate,
+          });
+          dispatch(bringLoginInfo({ uid: res.data.uid }));
 
-        go();
-      }
-    });
+          go();
+        } else {
+        }
+      })
+      .catch((error) => {
+        console.log({ error });
+        Modal.error({
+          content: "아이디와 비밀번호를 확인해주세요.",
+        });
+      });
   };
   return (
     <>
