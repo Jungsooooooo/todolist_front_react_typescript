@@ -19,7 +19,7 @@ typescript를 통해 개발해 본 적이 없어서 typescript기반으로 react
 
 cookie 값을 통해 각 기능들에 대한 자격을 부여한다.
 
-2) 회원가입 화면
+### [2) 회원가입 화면](https://github.com/Jungsooooooo/todolist_front_react_typescript/blob/master/src/login/JoinUser.tsx)
 ![image](https://github.com/Jungsooooooo/todolist_front_react_typescript/assets/94541011/d798c42f-17cd-438c-a1de-1bf550b300d6)
 
 회원가입 화면이고 하나의 값이라도 없으면 아래에 값을 입력하라고 알려준다.
@@ -34,10 +34,10 @@ cookie 값을 통해 각 기능들에 대한 자격을 부여한다.
 
 
 
-3)메인화면
+### [3)메인화면](https://github.com/Jungsooooooo/todolist_front_react_typescript/blob/master/src/calendar/CalendarHome.tsx)
 ![image](https://github.com/Jungsooooooo/todolist_front_react_typescript/assets/94541011/00c3053d-0ca3-4efd-92c5-e21651600dc0)
 
-3-1) 로그아웃 기능 추가
+### [3-1) 로그아웃 기능 추가](https://github.com/Jungsooooooo/todolist_front_react_typescript/blob/master/src/home/Home.tsx)
 ![image](https://github.com/Jungsooooooo/todolist_front_react_typescript/assets/94541011/0a673984-909d-48b2-a6d7-1725eaf7d133)
 상단 버튼에 로그아웃 버튼을 추가하여 로그아웃 할 수 있도록 해놓았다.
 
@@ -45,7 +45,7 @@ cookie 값을 통해 각 기능들에 대한 자격을 부여한다.
 파란색인 데이터는 아직 진행중인 할 일, 초록색은 완료된 할 일을 의미한다.
 화면 위 왼쪽에 할 일 적기 라는 버튼을 누르면
 
-4)다음과 같은 화면이 뜬다.
+### [4)다음과 같은 화면이 뜬다.(할 일 적기)]()
 ![image](https://github.com/Jungsooooooo/todolist_front_react_typescript/assets/94541011/3875ebef-6d29-4235-a247-7eedaec80990)
 
 5)할 일을 해야할 날짜를 선택하고 내용을 입력 후 생성 버튼을 누르면
@@ -57,7 +57,7 @@ cookie 값을 통해 각 기능들에 대한 자격을 부여한다.
 ![image](https://github.com/Jungsooooooo/todolist_front_react_typescript/assets/94541011/e6c6d746-52ef-49c4-8758-5d6d8d057f47)
 
 
-6) 보기 전환 모드(달력 및 테이블 보기)
+### [6) 보기 전환 모드(달력 및 테이블 보기)](https://github.com/Jungsooooooo/todolist_front_react_typescript/blob/master/src/table/TodoTable.tsx)
 6-1) 기본적으로 할 일 적기는 달력이 기본이며 테이블 모드로도 볼 수 있다.
 ![image](https://github.com/Jungsooooooo/todolist_front_react_typescript/assets/94541011/2ad6c4a8-d7c5-48ed-aa91-87528248d08f)
 6-2) 테이블 보기에서는 월별, 일별로 볼 수 있게 구현 되어 있다.(일별 6-1번 참조)
