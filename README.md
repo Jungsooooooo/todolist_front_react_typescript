@@ -15,6 +15,10 @@ typescript를 통해 개발해 본 적이 없어서 typescript기반으로 react
 로그인 화면이며 아이디와 비밀번호를 입력 하면
 해당 유저가 만든 할 일 들을 볼 수 있다.
 
+로그인 시 서버에서 발급해주는 토큰을 cookie로 세팅해주고,
+
+cookie 값을 통해 각 기능들에 대한 자격을 부여한다.
+
 2) 회원가입 화면
 ![image](https://github.com/Jungsooooooo/todolist_front_react_typescript/assets/94541011/d798c42f-17cd-438c-a1de-1bf550b300d6)
 
