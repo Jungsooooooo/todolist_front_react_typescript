@@ -5,7 +5,12 @@ TodoList
 2.  react typescript 및 nest js를 사용한 이유 -  
 typescript를 통해 개발해 본 적이 없어서 typescript기반으로 react 및 nest js를 통하여 개발을 진행했다.
 
-3. 화면구성
+3. 추가개발 - 로그인 기능을 추가하여 해당 유저의 할일들만 볼 수 있도록 구현 하였다.
+
+5. 화면구성
+1)
+![image](https://github.com/Jungsooooooo/todolist_front_react_typescript/assets/94541011/03434503-56a8-48f6-8328-47e3d7fc5c53)
+
 1)
 ![image](https://github.com/Jungsooooooo/todolist_front_react_typescript/assets/94541011/00c3053d-0ca3-4efd-92c5-e21651600dc0)
 
