@@ -2,10 +2,13 @@ import { Button, Form, Input, Modal, Typography } from "antd";
 import "../css/JoinUser.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const JoinUser = () => {
   const { confirm } = Modal;
   const { Title, Link } = Typography;
+  const [id, setId] = useState("");
+  const [checkIdExist, setCheckIdExist] = useState("");
 
   const nav = useNavigate();
 
@@ -27,7 +30,25 @@ const JoinUser = () => {
       nickname: values.nickname,
     };
 
+    if (checkIdExist === "false" || checkIdExist === "") {
+      return Modal.error({
+        content: "아이디 중복확인을 해주세요",
+      });
+    }
+
     return createUser(values);
+  };
+
+  const onValuesChange = (allValues: any) => {
+    setCheckIdExist("false");
+    let id = allValues.id;
+    const regExp = /[a-zA-Z0-9]/g;
+    if (!regExp.test(id) && id !== "") {
+      return Modal.error({
+        content: "영어와 숫자로만 입력해주세요",
+      });
+    }
+    setId(id);
   };
 
   const createUser = (value: FieldType) => {
@@ -35,7 +56,7 @@ const JoinUser = () => {
       content: "가입하시겠습니까?",
       onOk() {
         const input = {
-          id: value.id,
+          id: id,
           password: value.password,
           name: value.nickname,
         };
@@ -59,15 +80,22 @@ const JoinUser = () => {
     console.log("check");
     let idvalue = document.getElementById("basic_id") as HTMLInputElement;
     let id = idvalue.value;
+    console.log(id === "");
+    if (id === "") {
+      return Modal.info({
+        content: "아이디를 입력해주세요.",
+      });
+    }
     axios.get("/user/check/" + id).then((res) => {
       if (res.data.length > 0) {
         Modal.info({
-          content: "사용중 인 아이디 입니다.",
+          content: id + "는 사용중인 아이디 입니다.",
         });
       } else {
         Modal.info({
-          content: "사용가능한 아이디 입니다.",
+          content: id + "는 사용가능한 아이디 입니다.",
         });
+        setCheckIdExist("true");
       }
     });
   };
@@ -82,6 +110,7 @@ const JoinUser = () => {
         initialValues={{ remember: true }}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
+        onValuesChange={onValuesChange}
         autoComplete="off"
         className="joinView"
       >
@@ -95,7 +124,7 @@ const JoinUser = () => {
             name="id"
             rules={[{ required: true, message: "Please input your id!" }]}
           >
-            <Input />
+            <Input placeholder="영문 및 숫자" onChange={onValuesChange} />
           </Form.Item>
         </div>
         <Form.Item<FieldType>
