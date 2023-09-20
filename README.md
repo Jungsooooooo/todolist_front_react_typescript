@@ -9,7 +9,7 @@ typescript를 통해 개발해 본 적이 없어서 typescript기반으로 react
 4. 추가개발예정 -> 관리자 기능으로 할일 부여 할 수 있게
 
 5. 화면구성
-[1) 로그인 화면](https://github.com/Jungsooooooo/todolist_front_react_typescript/blob/master/src/login/Login.tsx)
+### [1) 로그인 화면](https://github.com/Jungsooooooo/todolist_front_react_typescript/blob/master/src/login/Login.tsx)
 
 ![image](https://github.com/Jungsooooooo/todolist_front_react_typescript/assets/94541011/0666f2a4-69d7-4f82-acbf-5547db4fff98)
 로그인 화면이며 아이디와 비밀번호를 입력 하면
