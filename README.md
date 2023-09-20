@@ -7,23 +7,29 @@ typescript를 통해 개발해 본 적이 없어서 typescript기반으로 react
 
 3. 추가개발 - 로그인 기능을 추가하여 해당 유저의 할일들만 볼 수 있도록 구현 하였다.
 
-5. 화면구성
-1)아침해가 뜨면
+4. 화면구성
+1) 로그인 화면
+
 ![image](https://github.com/Jungsooooooo/todolist_front_react_typescript/assets/94541011/0666f2a4-69d7-4f82-acbf-5547db4fff98)
+로그인 화면이며 아이디와 비밀번호를 입력 하면
+해당 유저가 만든 할 일 들을 볼 수 있다.
 
 
-1)
+2)메인화면
 ![image](https://github.com/Jungsooooooo/todolist_front_react_typescript/assets/94541011/00c3053d-0ca3-4efd-92c5-e21651600dc0)
 
+2-1) 로그아웃 기능 추가
+![image](https://github.com/Jungsooooooo/todolist_front_react_typescript/assets/94541011/0a673984-909d-48b2-a6d7-1725eaf7d133)
+상단 버튼에 로그아웃 버튼을 추가하여 로그아웃 할 수 있도록 해놓았다.
 
 달력에 그 날 해야할 일들이 보인다.
 파란색인 데이터는 아직 진행중인 할 일, 초록색은 완료된 할 일을 의미한다.
 화면 위 왼쪽에 할 일 적기 라는 버튼을 누르면
 
-2)다음과 같은 화면이 뜬다.
+3)다음과 같은 화면이 뜬다.
 ![image](https://github.com/Jungsooooooo/todolist_front_react_typescript/assets/94541011/3875ebef-6d29-4235-a247-7eedaec80990)
 
-3)할 일을 해야할 날짜를 선택하고 내용을 입력 후 생성 버튼을 누르면
+4)할 일을 해야할 날짜를 선택하고 내용을 입력 후 생성 버튼을 누르면
 ![image](https://github.com/Jungsooooooo/todolist_front_react_typescript/assets/94541011/d3b9cf19-bb1c-4236-9bc2-522a8683b8fd)
 
 
