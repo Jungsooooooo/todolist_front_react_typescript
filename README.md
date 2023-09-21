@@ -5,10 +5,13 @@ TodoList
 2.  react typescript 및 nest js를 사용한 이유 -  
 typescript를 통해 개발해 본 적이 없어서 typescript기반으로 react 및 nest js를 통하여 개발을 진행했다.
 
-3. 추가개발 - 로그인 기능을 추가하여 해당 유저의 할일들만 볼 수 있도록 구현 하였다.
-4. 추가개발예정 -> 관리자 기능으로 할일 부여 할 수 있게
+### [서버(nestjs)](https://github.com/Jungsooooooo/todolist_back_nest)
 
-5. 화면구성
+
+4. 추가개발 - 로그인 기능을 추가하여 해당 유저의 할일들만 볼 수 있도록 구현 하였다.
+5. 추가개발예정 -> 관리자 기능으로 할일 부여 할 수 있게
+
+6. 화면구성
 ### [1) 로그인 화면](https://github.com/Jungsooooooo/todolist_front_react_typescript/blob/master/src/login/Login.tsx)
 
 ![image](https://github.com/Jungsooooooo/todolist_front_react_typescript/assets/94541011/0666f2a4-69d7-4f82-acbf-5547db4fff98)
@@ -65,4 +68,3 @@ cookie 값을 통해 각 기능들에 대한 자격을 부여한다.
 6-3) 해당 할 일을 클릭하면 완료 처리 및 삭제가 가능되게 구현 되어 있다.
 ![image](https://github.com/Jungsooooooo/todolist_front_react_typescript/assets/94541011/36676b29-2434-4aa5-a5a3-24a82ef9b53b)
 
-### [서버(nestjs)](https://github.com/Jungsooooooo/todolist_back_nest)
